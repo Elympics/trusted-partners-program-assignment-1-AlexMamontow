@@ -2,25 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Elympics;
-public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable, IObservable
+public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 {
-	//public bool PlayerIsReady => playerIsReady.Value;
-
 	[SerializeField]
 	private InputHandler inputHandler;
 	[SerializeField]
 	private MovementHandler movementHandler;
 	[SerializeField]
-	private GameManager gameManager;
-	/*[SerializeField]
-	private ActionHandler actionHandler;*/
-
-	public ElympicsBool PlayerIsReady = new ElympicsBool();
-
-	/*public void UpdatePlayerIsReady(bool state)
-	{
-		playerIsReady.Value = state;
-	}*/
+	private ActionHandler actionHandler;
 
 	private void Update()
 	{
@@ -33,11 +22,6 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable, I
 	}
 	public void ElympicsUpdate()
 	{
-		if (!gameManager.PlayersReady)
-		{
-			return;
-		}
-
 		GatheredInput currentInput;
 		currentInput.movementInput = Vector2.zero;
 		currentInput.mousePosition = transform.position + transform.forward;
@@ -61,7 +45,7 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable, I
 
 		//Debug.Log($"Movement: {currentInput.movementInput}, mouse : {currentInput.mousePosition}");
 		movementHandler.HanfleMovement(currentInput.movementInput, currentInput.mousePosition);
-		//actionHandler.HandleActions(currentInput.attack, currentInput.block, Elympics.Tick);
+		actionHandler.HandleActions(currentInput.attack, Elympics.Tick);
 	}
 
 	public void OnInputForBot(IInputWriter inputSerializer)
