@@ -866,7 +866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 4
+  networkId: 17
   predictableFor:
     playerIndex: -2
   isUpdatableForNonOwners: 0
@@ -1117,7 +1117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 3
+  networkId: 18
   predictableFor:
     playerIndex: 0
   isUpdatableForNonOwners: 0
@@ -1217,3 +1217,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inputHandler: {fileID: 4231479894119171128}
   movementHandler: {fileID: 4231479894119171131}
+  gameManager: {fileID: 0}
+  PlayerIsReady:
+    currentValue: 0

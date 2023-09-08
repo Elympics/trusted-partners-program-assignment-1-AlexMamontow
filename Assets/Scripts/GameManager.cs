@@ -6,12 +6,21 @@ using MatchTcpClients.Synchronizer;
 using System;
 using Cinemachine;
 
-public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid
+public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservable, IInitializable, IUpdatable
 {
+	public bool PlayersReady => readyPlayersAmount.Value == 2;
+
 	[SerializeField]
 	private CinemachineVirtualCamera playerFollowCamera;
 	[SerializeField]
-	private ElympicsBehaviour player0, player1;
+	private CanvasView canvas;
+	[SerializeField]
+	private PlayerHandler player0, player1;
+
+	private ElympicsInt readyPlayersAmount = new ElympicsInt();
+
+	private bool IsReadyButtonClicked = false;
+
 	public void OnAuthenticated(Guid userId)
 	{
 		Debug.Log($"OnAuthenticated {userId}");
@@ -31,6 +40,23 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid
 	{
 		Debug.Log($"OnConnected");
 		SetupCameraToPlayer();
+		readyPlayersAmount.ValueChanged += HandlePlayerReady;
+
+		if (Elympics.IsServer)
+		{
+			return;
+		}
+
+		canvas.ReadyButton.onClick.AddListener(() => 
+		{
+			IsReadyButtonClicked = true;
+			canvas.ReadyButton.gameObject.SetActive(false);
+		});
+	}
+
+	private void HandlePlayerReady(int lastValue, int newValue)
+	{
+		canvas.WaitingForPlayersText.gameObject.SetActive(!PlayersReady && !canvas.ReadyButton.gameObject.activeSelf);
 	}
 
 	private void SetupCameraToPlayer()
@@ -77,6 +103,26 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid
 
 	public void OnSynchronized(TimeSynchronizationData data)
 	{
-		Debug.Log($"OnSynchronized");
+		//Debug.Log($"OnSynchronized");
+	}
+
+	public void Initialize()
+	{
+		readyPlayersAmount.Value = 0;
+	}
+
+	[ElympicsRpc(ElympicsRpcDirection.PlayerToServer)]
+	public void PlayerIsReady()
+	{
+		readyPlayersAmount.Value++;
+	}
+
+	public void ElympicsUpdate()
+	{
+		if (IsReadyButtonClicked)
+		{
+			PlayerIsReady();
+			IsReadyButtonClicked = false;
+		}
 	}
 }
