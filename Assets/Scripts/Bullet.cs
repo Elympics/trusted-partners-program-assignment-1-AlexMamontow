@@ -39,7 +39,7 @@ public class Bullet : ElympicsMonoBehaviour, IUpdatable
 
     private void OnEnable()
     {
-        rigidbody.velocity = transform.localRotation.eulerAngles.normalized * speed;
+        rigidbody.velocity = transform.forward * speed;
     }
 
     private void OnDisable()
