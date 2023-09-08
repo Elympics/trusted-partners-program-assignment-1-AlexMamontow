@@ -31,7 +31,7 @@ public class AttackHandler : ElympicsMonoBehaviour, IObservable
 
         Bullet bullet = ElympicsInstantiate(bulletPrefab.name, ElympicsPlayer.All).GetComponent<Bullet>();
         //bullet.SetPool(m_bulletPool);
-        bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage, transform.forward);
+        bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage, BulletSpawnPoint.forward);
         return bullet;
     }
 

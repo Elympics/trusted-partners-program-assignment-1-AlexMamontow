@@ -23,4 +23,14 @@ public class PlayerInfo : MonoBehaviour, IObservable, IInitializable
     {
         return playerID;
     }
+
+	public void SubscribeToHealthValueChanged(ElympicsVar<float>.ValueChangedCallback action)
+	{
+		health.ValueChanged += action;
+	}
+
+	public float GetHealthRatio()
+	{ 
+		return health.Value / maxHealth;
+	}
 }

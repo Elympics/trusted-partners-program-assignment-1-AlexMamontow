@@ -5,6 +5,8 @@ using Elympics;
 using MatchTcpClients.Synchronizer;
 using System;
 using Cinemachine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservable, IInitializable, IUpdatable
 {
@@ -16,6 +18,14 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservabl
 	private CanvasView canvas;
 	[SerializeField]
 	private PlayerHandler player0, player1;
+	[SerializeField]
+	private PlayerInfo player0Info, player1Info;
+	[SerializeField]
+	private GameOverScreenHandler gameOverScreenHandler;
+	[SerializeField]
+	private PlayerHandler player0Handler, player1Handler;
+
+	private bool gameEnded = false;
 
 	private ElympicsInt readyPlayersAmount = new ElympicsInt();
 
@@ -47,7 +57,7 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservabl
 			return;
 		}
 
-		canvas.ReadyButton.onClick.AddListener(() => 
+		canvas.ReadyButton.onClick.AddListener(() =>
 		{
 			IsReadyButtonClicked = true;
 			canvas.ReadyButton.gameObject.SetActive(false);
@@ -124,5 +134,48 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservabl
 			PlayerIsReady();
 			IsReadyButtonClicked = false;
 		}
+
+		bool player0Died = player0Info.GetHealthRatio() <= 0;
+		bool player1Died = player1Info.GetHealthRatio() <= 0;
+
+		if (player0Died || player1Died)
+		{
+			if (player0Died && player1Died)
+			{
+				gameOverScreenHandler.DisplayGameOver(-1);
+			}
+			else if (player0Died)
+			{
+				gameOverScreenHandler.DisplayGameOver(1);
+			}
+			else
+			{
+				gameOverScreenHandler.DisplayGameOver(0);
+			}
+
+			gameEnded = true;
+
+			if (Elympics.IsServer)
+			{
+				player0Handler.TurnOffPlayer();
+				player1Handler.TurnOffPlayer();
+				Elympics.EndGame();
+			}
+		}
+		else if (gameEnded)
+		{
+			gameEnded = false;
+			gameOverScreenHandler.RevertGameOverDisplay();
+		}		
+	}
+
+	public void ToMenu()
+	{
+		SceneManager.LoadScene(0);
+	}
+
+	public void Quit()
+	{
+		Application.Quit();
 	}
 }

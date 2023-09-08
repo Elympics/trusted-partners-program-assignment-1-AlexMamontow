@@ -12,6 +12,13 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 	private ActionHandler actionHandler;
 	[SerializeField]
 	private GameManager gameManager;
+	[SerializeField]
+	private ElympicsBool playerActive = new ElympicsBool(true);
+
+	public void TurnOffPlayer()
+	{
+		playerActive.Value = false;
+	}
 
 	private void Update()
 	{
@@ -25,6 +32,11 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 	public void ElympicsUpdate()
 	{
 		if (!gameManager.PlayersReady)
+		{
+			return;
+		}
+
+		if (!playerActive.Value)
 		{
 			return;
 		}
