@@ -12,26 +12,25 @@ public class AttackHandler : ElympicsMonoBehaviour, IObservable
     [SerializeField] private float bulletDamage;
     public void Attack(long tick)
     {
-        Bullet bullet = m_bulletPool?.Get();
+        Bullet bullet = CreateBullet();// m_bulletPool?.Get();
         bullet.SetTick(tick);
     } 
     
     [SerializeField] private GameObject bulletPrefab;
 
-    private IObjectPool<Bullet> m_bulletPool;
+    //private IObjectPool<Bullet> m_bulletPool;
 
-    private void Awake()
+    /*private void Awake()
     {
-        m_bulletPool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet,
-            maxSize: 5);
-    }
+        m_bulletPool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, maxSize: 20);
+    }*/
 
 
     private Bullet CreateBullet()
     {
 
-        Bullet bullet = ElympicsInstantiate(bulletPrefab.name, ElympicsPlayer.World).GetComponent<Bullet>();
-        bullet.SetPool(m_bulletPool);
+        Bullet bullet = ElympicsInstantiate(bulletPrefab.name, ElympicsPlayer.All).GetComponent<Bullet>();
+        //bullet.SetPool(m_bulletPool);
         bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage);
         return bullet;
     }
@@ -42,7 +41,7 @@ public class AttackHandler : ElympicsMonoBehaviour, IObservable
         bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage);
     }
 
-    private void OnReleaseBullet(Bullet bullet)
+    /*private void OnReleaseBullet(Bullet bullet)
     {
         bullet.gameObject.SetActive(false);
     }
@@ -50,13 +49,6 @@ public class AttackHandler : ElympicsMonoBehaviour, IObservable
     private void OnDestroyBullet(Bullet bullet)
     {
         ElympicsDestroy(bullet.gameObject);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            m_bulletPool?.Get();
-        }
-    }
+    }*/
+    
 }
