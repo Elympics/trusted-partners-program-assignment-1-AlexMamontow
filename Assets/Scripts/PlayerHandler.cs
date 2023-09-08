@@ -10,6 +10,8 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 	private MovementHandler movementHandler;
 	[SerializeField]
 	private ActionHandler actionHandler;
+	[SerializeField]
+	private GameManager gameManager;
 
 	private void Update()
 	{
@@ -22,6 +24,10 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 	}
 	public void ElympicsUpdate()
 	{
+		if (!gameManager.PlayersReady)
+		{
+			return;
+		}
 		GatheredInput currentInput;
 		currentInput.movementInput = Vector2.zero;
 		currentInput.mousePosition = transform.position + transform.forward;

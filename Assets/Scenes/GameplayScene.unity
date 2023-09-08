@@ -1437,6 +1437,14 @@ PrefabInstance:
       propertyPath: predictableFor.playerIndex
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6739888574989316238, guid: 9b2af15442efa7548bde7861caaa43db, type: 3}
+      propertyPath: networkId
+      value: 41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7517176689138697500, guid: 9b2af15442efa7548bde7861caaa43db, type: 3}
+      propertyPath: networkId
+      value: 42
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b2af15442efa7548bde7861caaa43db, type: 3}
 --- !u!1001 &4231479892795344282
