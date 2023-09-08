@@ -8,8 +8,8 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 	private InputHandler inputHandler;
 	[SerializeField]
 	private MovementHandler movementHandler;
-	/*[SerializeField]
-	private ActionHandler actionHandler;*/
+	[SerializeField]
+	private ActionHandler actionHandler;
 
 	private void Update()
 	{
@@ -45,7 +45,7 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 
 		//Debug.Log($"Movement: {currentInput.movementInput}, mouse : {currentInput.mousePosition}");
 		movementHandler.HanfleMovement(currentInput.movementInput, currentInput.mousePosition);
-		//actionHandler.HandleActions(currentInput.attack, currentInput.block, Elympics.Tick);
+		actionHandler.HandleActions(currentInput.attack, Elympics.Tick);
 	}
 
 	public void OnInputForBot(IInputWriter inputSerializer)
