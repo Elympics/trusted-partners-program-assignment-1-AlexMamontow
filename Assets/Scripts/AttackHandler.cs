@@ -31,14 +31,14 @@ public class AttackHandler : ElympicsMonoBehaviour, IObservable
 
         Bullet bullet = ElympicsInstantiate(bulletPrefab.name, ElympicsPlayer.All).GetComponent<Bullet>();
         //bullet.SetPool(m_bulletPool);
-        bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage);
+        bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage, transform.forward);
         return bullet;
     }
 
     private void OnGetBullet(Bullet bullet)
     {
         bullet.gameObject.SetActive(true);
-        bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage);
+        bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage, transform.forward);
     }
 
     /*private void OnReleaseBullet(Bullet bullet)

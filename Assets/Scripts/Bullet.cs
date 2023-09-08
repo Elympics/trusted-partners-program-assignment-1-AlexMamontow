@@ -8,7 +8,7 @@ using UnityEngine.Pool;
 public class Bullet : ElympicsMonoBehaviour, IUpdatable
 {
     [SerializeField] private float speed;
-    [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private Rigidbody bulletRigidbody;
     //private IObjectPool<Bullet> pool;
     private PlayerInfo playerInfo;
     private float bulletDamage;
@@ -19,13 +19,16 @@ public class Bullet : ElympicsMonoBehaviour, IUpdatable
         pool = pool;
     }*/
 
-    public void SetUpBullet(Vector3 position, Quaternion rotation, PlayerInfo info, float damage)
+    public void SetUpBullet(Vector3 position, Quaternion rotation, PlayerInfo info, float damage, Vector3 direction)
     {
         transform.position = position;
         transform.rotation = rotation;
         playerInfo = info;
         bulletDamage = damage;
-    }
+
+		bulletRigidbody.velocity = direction.normalized * speed;
+
+	}
 
     public void SetTick(long tick)
     {
@@ -37,14 +40,14 @@ public class Bullet : ElympicsMonoBehaviour, IUpdatable
         pool?.Release(this);
     }*/
 
-    private void OnEnable()
+    /*private void OnEnable()
     {
         rigidbody.velocity = transform.forward * speed;
-    }
+    }*/
 
     private void OnDisable()
     {
-        rigidbody.velocity = Vector3.zero;
+        bulletRigidbody.velocity = Vector3.zero;
     }
 
     private void OnTriggerEnter(Collider other)
