@@ -10,27 +10,23 @@ public class AttackHandler : ElympicsMonoBehaviour, IObservable
     [SerializeField] private Transform BulletSpawnPoint;
 
     [SerializeField] private float bulletDamage;
+    [SerializeField] private int ammoPerBullet;
+
+    [SerializeField] private GameObject bulletPrefab;
+    
     public void Attack(long tick)
     {
-        Bullet bullet = CreateBullet();// m_bulletPool?.Get();
-        bullet.SetTick(tick);
+        if (playerInfo.SpendAmmo(ammoPerBullet))
+        {
+            Bullet bullet = CreateBullet();
+            bullet.SetTick(tick);
+        }
     } 
     
-    [SerializeField] private GameObject bulletPrefab;
-
-    //private IObjectPool<Bullet> m_bulletPool;
-
-    /*private void Awake()
-    {
-        m_bulletPool = new ObjectPool<Bullet>(CreateBullet, OnGetBullet, OnReleaseBullet, OnDestroyBullet, maxSize: 20);
-    }*/
-
-
     private Bullet CreateBullet()
     {
 
         Bullet bullet = ElympicsInstantiate(bulletPrefab.name, ElympicsPlayer.All).GetComponent<Bullet>();
-        //bullet.SetPool(m_bulletPool);
         bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage, BulletSpawnPoint.forward);
         return bullet;
     }
@@ -41,14 +37,4 @@ public class AttackHandler : ElympicsMonoBehaviour, IObservable
         bullet.SetUpBullet(BulletSpawnPoint.transform.position, BulletSpawnPoint.rotation, playerInfo, bulletDamage, transform.forward);
     }
 
-    /*private void OnReleaseBullet(Bullet bullet)
-    {
-        bullet.gameObject.SetActive(false);
-    }
-
-    private void OnDestroyBullet(Bullet bullet)
-    {
-        ElympicsDestroy(bullet.gameObject);
-    }*/
-    
 }

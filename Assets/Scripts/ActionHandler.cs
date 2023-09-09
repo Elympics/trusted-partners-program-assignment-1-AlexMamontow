@@ -6,7 +6,7 @@ using UnityEngine;
 public class ActionHandler : MonoBehaviour, IObservable
 {
     [SerializeField] private AttackHandler attackHandler;
-    [SerializeField] private ElympicsInt currentAction = new ElympicsInt();//0 - idle, 1 - attack
+    [SerializeField] private ElympicsInt currentAction = new ElympicsInt();
 
     [SerializeField] private int attackCooldown;
 

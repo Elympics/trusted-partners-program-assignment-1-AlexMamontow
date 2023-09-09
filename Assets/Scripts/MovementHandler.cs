@@ -11,7 +11,7 @@ public class MovementHandler : MonoBehaviour
 	[SerializeField]
 	private float movementSpeed;
 
-	public void HanfleMovement(Vector2 movementInput, Vector3 mousePosition)
+	public void HandleMovement(Vector2 movementInput, Vector3 mousePosition)
 	{
 		movementInput.Normalize();
 		movementInput *= movementSpeed;

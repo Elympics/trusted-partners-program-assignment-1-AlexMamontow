@@ -9,15 +9,9 @@ public class Bullet : ElympicsMonoBehaviour, IUpdatable
 {
     [SerializeField] private float speed;
     [SerializeField] private Rigidbody bulletRigidbody;
-    //private IObjectPool<Bullet> pool;
     private PlayerInfo playerInfo;
     private float bulletDamage;
     private ElympicsBool shouldBeDestroyed = new ElympicsBool();
-
-    /*public void SetPool(IObjectPool<Bullet> pool)
-    {
-        pool = pool;
-    }*/
 
     public void SetUpBullet(Vector3 position, Quaternion rotation, PlayerInfo info, float damage, Vector3 direction)
     {
@@ -35,16 +29,6 @@ public class Bullet : ElympicsMonoBehaviour, IUpdatable
         
     }
 
-    /*private void OnBecameInvisible()
-    {
-        pool?.Release(this);
-    }*/
-
-    /*private void OnEnable()
-    {
-        rigidbody.velocity = transform.forward * speed;
-    }*/
-
     private void OnDisable()
     {
         bulletRigidbody.velocity = Vector3.zero;
@@ -57,12 +41,10 @@ public class Bullet : ElympicsMonoBehaviour, IUpdatable
         {
             collidedPlayer.DealDamage(bulletDamage);
             shouldBeDestroyed.Value = true;
-            //pool?.Release(this);
         } 
         else if (null == collidedPlayer)
         {
             shouldBeDestroyed.Value = true;
-            //pool?.Release(this);
         }
     }
 

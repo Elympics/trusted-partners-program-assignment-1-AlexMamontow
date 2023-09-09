@@ -44,7 +44,6 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 		currentInput.movementInput = Vector2.zero;
 		currentInput.mousePosition = transform.position + transform.forward;
 		currentInput.attack = false;
-		//currentInput.block = false;
 
 		if (ElympicsBehaviour.TryGetInput(PredictableFor, out var inputReader))
 		{
@@ -58,11 +57,10 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 			currentInput.mousePosition = new Vector3(x2, y2, z2);
 
 			inputReader.Read(out currentInput.attack);
-			//inputReader.Read(out currentInput.block);			
 		}
 
 		//Debug.Log($"Movement: {currentInput.movementInput}, mouse : {currentInput.mousePosition}");
-		movementHandler.HanfleMovement(currentInput.movementInput, currentInput.mousePosition);
+		movementHandler.HandleMovement(currentInput.movementInput, currentInput.mousePosition);
 		actionHandler.HandleActions(currentInput.attack, Elympics.Tick);
 	}
 
@@ -81,7 +79,6 @@ public class PlayerHandler : ElympicsMonoBehaviour, IInputHandler, IUpdatable
 		inputSerializer.Write(currentInput.mousePosition.z);
 
 		inputSerializer.Write(currentInput.attack);
-		//inputSerializer.Write(currentInput.block);
 	}
 
 	

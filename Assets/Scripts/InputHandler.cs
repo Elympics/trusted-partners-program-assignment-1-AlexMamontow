@@ -16,7 +16,6 @@ public class InputHandler : MonoBehaviour
 		gatheredInput.mousePosition = GetWorldMousePosition();
 		gatheredInput.movementInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 		gatheredInput.attack = Input.GetKey(KeyCode.Mouse0) || gatheredInput.attack;
-		//gatheredInput.block = Input.GetKey(KeyCode.Mouse1) || gatheredInput.block;
 	}
 
 	public GatheredInput GetInput()
@@ -25,7 +24,6 @@ public class InputHandler : MonoBehaviour
 		gatheredInput.movementInput = Vector2.zero;
 		gatheredInput.mousePosition = transform.position + transform.forward;
 		gatheredInput.attack = false;
-		//gatheredInput.block = false;
 
 		return returnedInput;
 	}
@@ -49,5 +47,4 @@ public struct GatheredInput
 	public Vector2 movementInput;
 	public Vector3 mousePosition;
 	public bool attack;
-	//public bool block;
 }

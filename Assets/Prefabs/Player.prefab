@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4758835817514061800}
   - component: {fileID: 5630329977511146284}
   m_Layer: 0
-  m_Name: HealthComponent
+  m_Name: PlayerInfoComponent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 81
+  networkId: 90
   predictableFor:
     playerIndex: -2
   isUpdatableForNonOwners: 0
@@ -77,7 +77,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerID: 0
   maxHealth: 100
+  maxAmmoCapacity: 10
   health:
+    currentValue: 0
+  ammoCapacity:
     currentValue: 0
   actionHandler: {fileID: 4046168276712337615}
 --- !u!114 &5630329977511146284
@@ -139,7 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 82
+  networkId: 88
   predictableFor:
     playerIndex: 0
   isUpdatableForNonOwners: 0
@@ -170,6 +173,7 @@ MonoBehaviour:
   playerInfo: {fileID: 4758835817514061800}
   BulletSpawnPoint: {fileID: 267474911234931139}
   bulletDamage: 10
+  ammoPerBullet: 1
   bulletPrefab: {fileID: 7200446510609295396, guid: a0d28de55eabd6c488d6e44977be9e55, type: 3}
 --- !u!114 &4946005839457451794
 MonoBehaviour:
@@ -1081,7 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 79
+  networkId: 89
   predictableFor:
     playerIndex: -2
   isUpdatableForNonOwners: 0
@@ -1337,7 +1341,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceNetworkId: 0
-  networkId: 80
+  networkId: 87
   predictableFor:
     playerIndex: 0
   isUpdatableForNonOwners: 0
