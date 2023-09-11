@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameName: ElympicsShooterByPA
   gameId: 598a813d-c7d6-4360-b90d-736b0281f459
-  gameVersion: 1
+  gameVersion: 2
   players: 2
   gameplayScene: Assets/Scenes/GameplayScene.unity
   gameplaySceneAsset: {fileID: 102900000, guid: 82ab73979e0a27a4fbeb0fcb1d3e709b, type: 3}

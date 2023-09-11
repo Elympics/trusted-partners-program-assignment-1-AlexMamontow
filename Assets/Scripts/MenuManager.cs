@@ -17,7 +17,7 @@ public class MenuManager : ElympicsMonoBehaviour
 		}
 
 		var (Region, LatencyMs) = await ClosestRegionFinder.GetClosestRegion();
-		ElympicsLobbyClient.Instance.PlayOnlineInRegion(Region);
+		ElympicsLobbyClient.Instance.PlayOnlineInRegion(Region, null, null, "Default");
 
 		searchInProgress = true;
 

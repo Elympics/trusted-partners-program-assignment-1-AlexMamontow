@@ -9,6 +9,7 @@
 /[Ll]ogs/
 /Assets/AssetStoreTools*
 /*clone*/
+/serverbuild/
 *.csproj.meta
 
 # Visual Studio 2015 cache directory
