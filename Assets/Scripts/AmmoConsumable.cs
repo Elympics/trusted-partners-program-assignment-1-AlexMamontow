@@ -21,8 +21,13 @@ public class AmmoConsumable : ElympicsMonoBehaviour, IUpdatable
         {
             collidedPlayer.RefillAmmo();
             shouldBeDestroyed.Value = true;
-            spawner.RemoveConsumable();
+            spawner?.RemoveConsumable();
         }
+    }
+
+    public void SetDestroyTrigger(bool value)
+    {
+        shouldBeDestroyed.Value = value;
     }
     
     public void ElympicsUpdate()

@@ -42,6 +42,11 @@ public class PlayerInfo : MonoBehaviour, IObservable, IInitializable
         ammoCapacity.Value = maxAmmoCapacity;
     }
 
+    public int GetMaxAmmoCapacity()
+    {
+	    return maxAmmoCapacity;
+    }
+
     public int GetID()
     {
         return playerID;
@@ -50,6 +55,11 @@ public class PlayerInfo : MonoBehaviour, IObservable, IInitializable
 	public void SubscribeToHealthValueChanged(ElympicsVar<float>.ValueChangedCallback action)
 	{
 		health.ValueChanged += action;
+	}
+	
+	public void SubscribeToAmmoValueChanged(ElympicsVar<int>.ValueChangedCallback action)
+	{
+		ammoCapacity.ValueChanged += action;
 	}
 
 	public float GetHealthRatio()

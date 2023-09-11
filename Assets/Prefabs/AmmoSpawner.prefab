@@ -76,8 +76,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edea13b825bca034f8f7adafb43b77ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minCooldown: 50
-  maxCooldown: 200
+  minCooldown: 100
+  maxCooldown: 300
   cooldownTick: 0
   spawnPosition: {fileID: 52236839144495366}
   ammoConsumablePrefab: {fileID: 4395492686133643773, guid: ee5d9a505c673ad4eb205382f084be30, type: 3}

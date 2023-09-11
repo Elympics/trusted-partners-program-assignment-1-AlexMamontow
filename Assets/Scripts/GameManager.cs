@@ -25,11 +25,14 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservabl
 	[SerializeField]
 	private PlayerHandler player0Handler, player1Handler;
 
+	[SerializeField] private List<AmmoSpawner> ammoSpawners;
+
 	private bool gameEnded = false;
 
 	private ElympicsInt readyPlayersAmount = new ElympicsInt();
 
 	private bool IsReadyButtonClicked = false;
+	private bool IsAmmoSpawnersActive = false;
 
 	public void OnAuthenticated(Guid userId)
 	{
@@ -135,6 +138,17 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservabl
 			IsReadyButtonClicked = false;
 		}
 
+		if (PlayersReady && !IsAmmoSpawnersActive)
+		{
+			Debug.Log($"Spawners activated");
+			foreach (var spawner in ammoSpawners)
+			{
+				spawner.ChangeSpawnAbility(true);
+			}
+
+			IsAmmoSpawnersActive = true;
+		}
+
 		bool player0Died = player0Info.GetHealthRatio() <= 0;
 		bool player1Died = player1Info.GetHealthRatio() <= 0;
 
@@ -159,6 +173,13 @@ public class GameManager : ElympicsMonoBehaviour, IClientHandlerGuid, IObservabl
 			{
 				player0Handler.TurnOffPlayer();
 				player1Handler.TurnOffPlayer();
+				Debug.Log($"Spawners deactivated");
+				foreach (var spawner in ammoSpawners)
+				{
+					spawner.ChangeSpawnAbility(false);
+				}
+				IsAmmoSpawnersActive = false;
+				
 				Elympics.EndGame();
 			}
 		}

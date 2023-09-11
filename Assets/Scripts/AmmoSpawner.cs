@@ -6,6 +6,7 @@ using UnityEngine;
 public class AmmoSpawner : ElympicsMonoBehaviour, IUpdatable
 {
     private bool isSpawned = false;
+    private ElympicsBool spawnActive = new ElympicsBool();
 
 
     [SerializeField] private int minCooldown = 50;
@@ -35,7 +36,6 @@ public class AmmoSpawner : ElympicsMonoBehaviour, IUpdatable
     public void RemoveConsumable()
     {
         isSpawned = false;
-        spawnedConsumable = null;
         cooldownTick = Elympics.Tick + Random.Range(minCooldown, maxCooldown);
     }
 
@@ -44,12 +44,23 @@ public class AmmoSpawner : ElympicsMonoBehaviour, IUpdatable
         return spawnedConsumable;
     }
 
+    public void ChangeSpawnAbility(bool value)
+    {
+        spawnActive.Value = value;
+        cooldownTick = Elympics.Tick + Random.Range(minCooldown, maxCooldown);
+    }
+
     public void ElympicsUpdate()
     {
-        if (!isSpawned && Elympics.Tick > cooldownTick)
+        if (spawnActive.Value && !isSpawned && Elympics.Tick > cooldownTick)
         {
             spawnedConsumable = CreateAmmoConsumable();
             cooldownTick = Elympics.Tick + Random.Range(minCooldown, maxCooldown);
+        }
+        else if(!spawnActive.Value)
+        {
+            isSpawned = false;
+            spawnedConsumable?.SetDestroyTrigger(true);
         }
     }
 }
